@@ -20,6 +20,19 @@ export async function addTask(req: Request, res: Response) {
   }
 }
 
+export async function getTasks(req: Request, res: Response) {
+  try {
+    const tasksFromDb = await Task.find({});
+    res.status(200);
+    res.send(tasksFromDb);
+    res.end();
+  } catch (e) {
+    res.status(500);
+    res.send(e);
+    res.end();
+  }
+}
+
 export async function deleteTask(req: Request, res: Response) {
   try {
     const task = req.body.task;
