@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { TasksContext } from '../context/TasksContext';
 
 export const Form = () => {
   const [task, setTask] = useState({})
@@ -12,8 +13,12 @@ export const Form = () => {
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(task);
-
   }
+
+  const context = useContext(TasksContext)
+  console.log(context);
+
+
   return (
     <form onSubmit={submitHandler}>
       <label htmlFor="dueDate">Due data</label>
