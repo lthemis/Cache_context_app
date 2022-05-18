@@ -13,10 +13,15 @@ export const Form = () => {
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(task);
+    action!([{ _id: "2s", content: "upward mobility2" }]);
+    console.log(task);
+
+
   }
 
-  const context = useContext(TasksContext)
-  console.log(context);
+  const { tasks, action } = useContext(TasksContext)
+  console.log(tasks)
+
 
 
   return (

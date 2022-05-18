@@ -6,4 +6,13 @@ interface Task {
   dueDate?: Date;
 }
 
-export const TasksContext = React.createContext<Task[]>([])
+interface FuncProp {
+  ():void;
+}
+
+interface Context {
+  action?: React.Dispatch<React.SetStateAction<Task[]>>,
+  tasks: Task[]
+}
+
+export const TasksContext = React.createContext<Context>({tasks:[]})

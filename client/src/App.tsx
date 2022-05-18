@@ -36,12 +36,18 @@ function App() {
   // const [state, dispatch] = useReducer(reducer, [{ _id: "", content: "" }])
 
   const [test, setTest] = useState<Task[]>([{ _id: "1s", content: "test" }])
+
+  const appContext = {
+    tasks: test,
+    action: setTest
+  }
+
   return (
     <div className="App">
-      <TasksContext.Provider value={test}>
+      <TasksContext.Provider value={appContext}>
         <Home></Home>
       </TasksContext.Provider>
-    </div>
+    </div >
   );
 }
 
