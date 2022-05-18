@@ -1,0 +1,11 @@
+# dependencies
+/server/node_modules
+/client/node_modules
+node_modules
+
+#misc
+.DS_Store
+/client/.DS_Store
+/sever/.DS_Store
+/server/.env
+/client/.env
