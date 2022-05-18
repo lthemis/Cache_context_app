@@ -1,5 +1,4 @@
 import Mongoose from 'mongoose';
-import dotenv from 'dotenv';
 
 const DB_MONGO_HOST = process.env.DB_MONGO_HOST;
 
