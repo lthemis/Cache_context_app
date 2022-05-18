@@ -39,6 +39,7 @@ export async function editTask(req: Request, res: Response) {
     const task = req.body.task;
     const acknowledgement = await Task.findOneAndUpdate(
       { _id: task._id },
+      { content: task.content, dueDate: task.dueDate },
       { new: true }
     );
     res.status(200);
