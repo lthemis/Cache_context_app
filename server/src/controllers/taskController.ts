@@ -2,14 +2,9 @@ import { Request, Response } from 'express';
 import { Task } from '../models/Task';
 
 export async function addTask(req: Request, res: Response) {
-  console.log('controller');
-
   try {
-    console.log(req.body.task);
     const task = req.body.task;
     const taskFromDb = await Task.create(task);
-    console.log('created');
-
     res.status(200);
     res.send(taskFromDb);
     res.end();
