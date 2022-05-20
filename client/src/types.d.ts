@@ -1,7 +1,7 @@
 interface Task {
-  _id: string;
-  content: string;
-  dueDate?: Date;
+  _id?: string;
+  content?: string;
+  dueDate?: Date | string;
   createdAt?: Date;
   updatedAt?: Date;
   __v?: number;

@@ -45,8 +45,12 @@ export async function deleteTask(req: Request, res: Response) {
 }
 
 export async function editTask(req: Request, res: Response) {
+  console.log('edit');
+
   try {
     const task = req.body.task;
+    console.log(task);
+
     const acknowledgement = await Task.findOneAndUpdate(
       { _id: task._id },
       { content: task.content, dueDate: task.dueDate },

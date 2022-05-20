@@ -1,8 +1,8 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import './App.css';
 import { TasksContext } from './context/TasksContext';
+import useHttp from './hooks/useHtml';
 import { Home } from './pages/Home';
-
 // function reducer(state: Task[], action: Action): Task[] {
 //   switch (action.type) {
 //     case 'add':
@@ -25,8 +25,19 @@ import { Home } from './pages/Home';
 
 function App() {
   // const [state, dispatch] = useReducer(reducer, [{ _id: '', content: '' }]);
-
+  const { sendRequest } = useHttp();
   const [tasks, setTasks] = useState<Task[] | []>([]);
+
+  useEffect(() => {
+    const config = {
+      url: `http://localhost:8000/getTasks`,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    sendRequest(config, setTasks);
+  }, [sendRequest]);
 
   const appContext = {
     tasks: tasks,
