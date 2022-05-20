@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { TasksContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 
-export const Form = () => {
+export const Form = (config: requestConfig) => {
   const { tasks, action, dispatch, setTasks } = useContext(TasksContext);
   const [task, setTask] = useState({});
   const { sendRequest } = useHttp();
@@ -18,13 +18,18 @@ export const Form = () => {
     // dispatch && dispatch({ type: 'add', payload: task });
     // action && action([{ _id: '2s', content: 'upward mobility2' }]);
 
-    const config = {
-      url: `http://localhost:8000/addTask`,
+    // const config = {
+    //   url: `http://localhost:8000/addTask`,
+    //   body: { task: task },
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // };
+
+    config = {
+      ...config,
       body: { task: task },
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
     };
     sendRequest(
       config,

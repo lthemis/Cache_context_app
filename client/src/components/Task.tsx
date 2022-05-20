@@ -1,14 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { TasksContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
+import { Modal } from './Modal';
 
 export const Task = ({ _id, dueDate, content }: Task) => {
   const { tasks, action, dispatch, setTasks } = useContext(TasksContext);
+  const [editState, setEditState] = useState(false);
 
   const { sendRequest: deleteTask } = useHttp();
-  function editHandler(e: any) {
-    console.log(e);
+
+  function editHandler() {
+    setEditState(true);
   }
+
   function deleteHandler() {
     const config = {
       url: `http://localhost:8000/deleteTask`,
@@ -40,6 +44,7 @@ export const Task = ({ _id, dueDate, content }: Task) => {
       <button type="button" name="delete" onClick={deleteHandler}>
         Delete
       </button>
+      {editState ? <Modal {...{ _id, dueDate, content }} /> : null}
     </div>
   );
 };

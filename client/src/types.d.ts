@@ -29,5 +29,5 @@ interface requestConfig {
   headers: {
     'Content-Type': string;
   };
-  body: any;
+  body?: any;
 }
