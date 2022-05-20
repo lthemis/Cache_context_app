@@ -1,0 +1,27 @@
+## Getting Started
+
+1. Install dependencies in both server and client folders.
+
+    ```bash
+    npm install
+    ```
+
+2. Create .env file in server folder
+
+    ```bash
+    DB_MONGO_HOST=
+    ```
+
+3. Install [MongoDB](https://www.mongodb.com/) on your machine
+
+4. Start the server => from the server folder, run
+
+    ```bash
+   npm start
+    ```
+
+5. Start the client => from the client folder, run
+
+    ```bash
+    npm start
+    ```
