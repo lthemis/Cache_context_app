@@ -21,3 +21,13 @@ interface Context {
   tasks: Task[];
   setTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
 }
+
+interface requestConfig {
+  url: string;
+  method?: string;
+  mode?: string;
+  headers: {
+    'Content-Type': string;
+  };
+  body: any;
+}
