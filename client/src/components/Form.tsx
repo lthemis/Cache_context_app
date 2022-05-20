@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 
 export const Form = (config: requestConfig) => {
   const { singleTask, setEditModalState } = useContext(SingleTaskContext);
-  const { tasks, setTasks } = useContext(TasksContext);
+  const { allTasks, setTasks } = useContext(TasksContext);
   const [task, setTask] = useState<Task>(
     checkIfObjectIsPopulated(singleTask)
       ? singleTask
@@ -64,7 +64,7 @@ export const Form = (config: requestConfig) => {
       : setShouldDisableBtn(false);
 
     name === 'content' &&
-      tasks.some((t) => {
+      allTasks.some((t) => {
         t.content === value
           ? setShouldDisableBtn(true)
           : setShouldDisableBtn(false);

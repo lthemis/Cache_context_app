@@ -8,7 +8,7 @@ interface Task {
 }
 
 interface Context {
-  tasks: Task[];
+  allTasks: Task[];
   setTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 

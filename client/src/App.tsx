@@ -6,7 +6,7 @@ import { Home } from './pages/Home';
 
 function App() {
   const { sendRequest } = useHttp();
-  const [tasks, setTasks] = useState<Task[] | []>([]);
+  const [allTasks, setTasks] = useState<Task[] | []>([]);
 
   useEffect(() => {
     const config = {
@@ -17,11 +17,11 @@ function App() {
       },
     };
     sendRequest(config, setTasks);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [sendRequest, tasks]);
+    localStorage.setItem('tasks', JSON.stringify(allTasks));
+  }, [sendRequest, allTasks]);
 
   const appContext = {
-    tasks: tasks,
+    allTasks: allTasks,
     setTasks: setTasks,
   };
 

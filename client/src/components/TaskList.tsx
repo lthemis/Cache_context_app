@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 export const TaskList = () => {
-  const { tasks } = useContext(TasksContext);
+  const { allTasks } = useContext(TasksContext);
   return (
     <Box
       sx={{
@@ -18,8 +18,8 @@ export const TaskList = () => {
       <Typography variant="h4" sx={{ m: 1 }}>
         TaskList
       </Typography>
-      {tasks &&
-        tasks.map((task) => {
+      {allTasks &&
+        allTasks.map((task) => {
           return <Task key={task._id} {...task}></Task>;
         })}
     </Box>
