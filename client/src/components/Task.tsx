@@ -1,7 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-export const Task = () => {
+export const Task = ({ dueDate, content }: Task) => {
   return (
-    <div>Task</div>
-  )
-}
+    <div>
+      <p>{content}</p>
+      {dueDate ? <p>{dueDate.toString()}</p> : null}
+    </div>
+  );
+};

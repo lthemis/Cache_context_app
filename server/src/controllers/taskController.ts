@@ -4,6 +4,8 @@ import { Task } from '../models/Task';
 export async function addTask(req: Request, res: Response) {
   try {
     const task = req.body.task;
+    console.log(req.body.task);
+
     const taskFromDb = await Task.create(task);
     res.status(200);
     res.send(taskFromDb);
