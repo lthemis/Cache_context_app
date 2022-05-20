@@ -1,28 +1,24 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react';
 import { TasksContext } from '../context/TasksContext';
 
 export const Form = () => {
-  const [task, setTask] = useState({})
+  const { tasks, action } = useContext(TasksContext);
+  const [task, setTask] = useState({});
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
     const name = target.name;
-    setTask({ ...task, [name]: target.value })
+    setTask({ ...task, [name]: target.value });
   }
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+    e.preventDefault();
     console.log(task);
-    action!([{ _id: "2s", content: "upward mobility2" }]);
+    action!([{ _id: '2s', content: 'upward mobility2' }]);
     console.log(task);
-
-
   }
 
-  const { tasks, action } = useContext(TasksContext)
-  console.log(tasks)
-
-
+  console.log(tasks);
 
   return (
     <form onSubmit={submitHandler}>
@@ -32,5 +28,5 @@ export const Form = () => {
       <input onChange={handleInputChange} type="text" name="task" />
       <button type="submit">Submit</button>
     </form>
-  )
-}
+  );
+};

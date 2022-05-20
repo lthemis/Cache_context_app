@@ -2,15 +2,6 @@ import React, { useReducer, useState } from 'react';
 import './App.css';
 import { TasksContext } from './context/TasksContext';
 import { Home } from './pages/Home';
-// interface Action {
-//   type: string
-// }
-
-interface Task {
-  _id: string;
-  content: string;
-  dueDate?: Date;
-}
 
 // function reducer(state: Task[], action: Action): Task[] {
 //   switch (action.type) {
@@ -29,25 +20,24 @@ interface Task {
 //   }
 // }
 
-
 // const TasksContext = React.createContext<Task[]>([])
 
 function App() {
   // const [state, dispatch] = useReducer(reducer, [{ _id: "", content: "" }])
 
-  const [test, setTest] = useState<Task[]>([{ _id: "1s", content: "test" }])
+  const [test, setTest] = useState<Task[]>([{ _id: '1s', content: 'test' }]);
 
   const appContext = {
     tasks: test,
-    action: setTest
-  }
+    action: setTest,
+  };
 
   return (
     <div className="App">
       <TasksContext.Provider value={appContext}>
         <Home></Home>
       </TasksContext.Provider>
-    </div >
+    </div>
   );
 }
 
