@@ -4,7 +4,7 @@ import useHttp from '../hooks/useHtml';
 import { checkIfObjectIsPopulated } from '../utils/helperFunctions';
 
 export const Form = (config: requestConfig) => {
-  const { singleTask } = useContext(SingleTaskContext);
+  const { singleTask, setEditModalState } = useContext(SingleTaskContext);
   const { setTasks } = useContext(TasksContext);
   const [task, setTask] = useState<Task>(
     checkIfObjectIsPopulated(singleTask)
@@ -37,6 +37,7 @@ export const Form = (config: requestConfig) => {
         },
       };
     }
+    setEditModalState && setEditModalState(false);
 
     sendRequest(
       config,

@@ -6,15 +6,16 @@ import dayjs from 'dayjs';
 
 export const Task = ({ ...task }: Task) => {
   const { setTasks } = useContext(TasksContext);
-  const [editState, setEditState] = useState(false);
+  const [editState, setEditModalState] = useState(false);
   const singleTaskContext = {
     singleTask: task,
+    setEditModalState: setEditModalState,
   };
 
   const { sendRequest: deleteTask } = useHttp();
 
   function editHandler() {
-    setEditState(true);
+    setEditModalState(true);
   }
 
   function deleteHandler() {
