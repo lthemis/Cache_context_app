@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext } from 'react';
 import { TasksContext, SingleTaskContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 import { checkIfObjectIsPopulated } from '../utils/helperFunctions';
@@ -21,8 +21,9 @@ export const Form = (config: requestConfig) => {
     const target = e.target;
     const name = target.name;
 
+    validateBtn(target.name, target.value);
+
     setTask({ ...task, [name]: target.value });
-    // validateBtn();
   }
 
   async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
@@ -56,21 +57,19 @@ export const Form = (config: requestConfig) => {
         })
     );
   }
-  const validateBtn = useCallback(() => {
-    task.content && task.content.length === 0
+
+  function validateBtn(name: string, value: string) {
+    name === 'content' && value === ''
       ? setShouldDisableBtn(true)
       : setShouldDisableBtn(false);
 
-    tasks.some((t) =>
-      t.content === task.content
-        ? setShouldDisableBtn(true)
-        : setShouldDisableBtn(false)
-    );
-  }, [task]);
-
-  useEffect(() => {
-    validateBtn();
-  }, [validateBtn, task]);
+    name === 'content' &&
+      tasks.some((t) => {
+        t.content === value
+          ? setShouldDisableBtn(true)
+          : setShouldDisableBtn(false);
+      });
+  }
 
   return (
     <Stack
