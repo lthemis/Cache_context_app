@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { TasksContext, SingleTaskContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 
-export const Form = (config: requestConfig, taskToEdit: Task) => {
+export const Form = (config: requestConfig) => {
   const { singleTask } = useContext(SingleTaskContext);
   const { setTasks } = useContext(TasksContext);
   const [task, setTask] = useState<Task>({ content: '', dueDate: '' });

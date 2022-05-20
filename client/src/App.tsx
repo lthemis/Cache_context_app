@@ -17,7 +17,7 @@ function App() {
       },
     };
     sendRequest(config, setTasks);
-  }, [sendRequest]);
+  }, [sendRequest, tasks]);
 
   const appContext = {
     tasks: tasks,

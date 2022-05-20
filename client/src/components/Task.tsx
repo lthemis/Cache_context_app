@@ -4,7 +4,7 @@ import useHttp from '../hooks/useHtml';
 import { Modal } from './Modal';
 
 export const Task = ({ ...task }: Task) => {
-  const { tasks, action, dispatch, setTasks } = useContext(TasksContext);
+  const { setTasks } = useContext(TasksContext);
   const [editState, setEditState] = useState(false);
   const singleTaskContext = {
     singleTask: task,
@@ -49,7 +49,7 @@ export const Task = ({ ...task }: Task) => {
       </button>
       {editState ? (
         <SingleTaskContext.Provider value={singleTaskContext}>
-          <Modal {...task} />{' '}
+          <Modal />{' '}
         </SingleTaskContext.Provider>
       ) : null}
     </div>
