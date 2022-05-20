@@ -22,6 +22,10 @@ interface Context {
   setTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
 }
 
+interface SingleTaskContext {
+  singleTask: Task;
+}
+
 interface requestConfig {
   url: string;
   method?: string;

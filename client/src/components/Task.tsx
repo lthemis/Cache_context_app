@@ -1,11 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { TasksContext } from '../context/TasksContext';
+import { SingleTaskContext, TasksContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 import { Modal } from './Modal';
 
 export const Task = ({ ...task }: Task) => {
   const { tasks, action, dispatch, setTasks } = useContext(TasksContext);
   const [editState, setEditState] = useState(false);
+  const singleTaskContext = {
+    singleTask: task,
+  };
 
   const { sendRequest: deleteTask } = useHttp();
 
@@ -44,7 +47,11 @@ export const Task = ({ ...task }: Task) => {
       <button type="button" name="delete" onClick={deleteHandler}>
         Delete
       </button>
-      {editState ? <Modal {...task} /> : null}
+      {editState ? (
+        <SingleTaskContext.Provider value={singleTaskContext}>
+          <Modal {...task} />{' '}
+        </SingleTaskContext.Provider>
+      ) : null}
     </div>
   );
 };

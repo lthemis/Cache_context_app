@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { SingleTaskContext } from '../context/TasksContext';
 import { Form } from './Form';
+
 export const Modal = ({ ...task }: Task) => {
+  const { singleTask } = useContext(SingleTaskContext);
+
   const config = {
     url: `http://localhost:8000/editTask`,
     method: 'PATCH',
@@ -8,7 +12,6 @@ export const Modal = ({ ...task }: Task) => {
       'Content-Type': 'application/json',
     },
   };
-  console.log(config, task);
 
   return (
     <div

@@ -1,17 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { TasksContext } from '../context/TasksContext';
+import { TasksContext, SingleTaskContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 
 export const Form = (config: requestConfig, taskToEdit: Task) => {
-  // console.log(config, taskToEdit);
-
-  const { tasks, action, dispatch, setTasks } = useContext(TasksContext);
+  const { singleTask } = useContext(SingleTaskContext);
+  const { setTasks } = useContext(TasksContext);
   const [task, setTask] = useState<Task>({ content: '', dueDate: '' });
   const { sendRequest } = useHttp();
-  // console.log(task);
-
-  taskToEdit && Object.keys(taskToEdit).length > 0 ? setTask(taskToEdit) : null;
-
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
     const name = target.name;
@@ -20,61 +15,32 @@ export const Form = (config: requestConfig, taskToEdit: Task) => {
 
   async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // console.log(config);
 
-    // if (taskToEdit && Object.keys(taskToEdit).length > 0) {
-    //   config = {
-    //     ...config,
-    //     body: {
-    //       task: {
-    //         ...tasks.filter((t) => t._id === taskToEdit._id),
-    //         content: task.content,
-    //         dueData: task.dueDate,
-    //       },
-    //     },
-    //   };
-    // } else {
-    //   config = {
-    //     ...config,
-    //     body: {
-    //       task: task,
-    //     },
-    //   };
-    // }
-
-    // console.log('XXX', tasks, taskToEdit);
-
-    // if (taskToEdit && Object.keys(taskToEdit).length > 0) {
-    //   config = {
-    //     ...config,
-    //     body: {
-    //       task: {
-    //         ...tasks.filter((t) => t._id === taskToEdit._id),
-    //         content: task.content,
-    //         dueData: task.dueDate,
-    //       },
-    //     },
-    //   };
-    // } else {
-    //   config = {
-    //     ...config,
-    //     body: {
-    //       task: task,
-    //     },
-    //   };
-    // }
-
-    config = {
-      ...config,
-      body: {
-        task: task,
-      },
-    };
-    console.log(config);
+    if (singleTask && Object.keys(singleTask).length > 0) {
+      config = {
+        ...config,
+        body: {
+          task: { ...singleTask, content: task.content, dueDate: task.dueDate },
+        },
+      };
+    } else {
+      config = {
+        ...config,
+        body: {
+          task: task,
+        },
+      };
+    }
 
     sendRequest(
       config,
-      (data: Task) => setTasks && setTasks((prev) => [...prev, data])
+      (data: Task) =>
+        setTasks &&
+        setTasks((prev) => {
+          return singleTask && Object.keys(singleTask).length > 0
+            ? [...prev.filter((t) => t._id !== singleTask._id), data]
+            : [...prev, data];
+        })
     );
   }
 
