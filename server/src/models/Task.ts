@@ -3,7 +3,7 @@ import Mongoose from 'mongoose';
 export interface Task {
   _id: string;
   content: string;
-  dueDate?: Date;
+  dueDate?: string;
   createdAt: Date;
   updatedAt: Date;
   __v: number;
@@ -17,7 +17,7 @@ const taskSchema = new Mongoose.Schema<Task>(
       unique: true,
     },
     dueDate: {
-      type: Date,
+      type: String,
     },
   },
   { timestamps: true }
