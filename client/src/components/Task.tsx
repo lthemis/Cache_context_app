@@ -3,6 +3,9 @@ import { SingleTaskContext, TasksContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 import { Modal } from './Modal';
 import dayjs from 'dayjs';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export const Task = ({ ...task }: Task) => {
   const { setTasks } = useContext(TasksContext);
@@ -41,24 +44,49 @@ export const Task = ({ ...task }: Task) => {
   }
 
   return (
-    <div>
-      <p>{task.content}</p>
-      <p>
+    <Box
+      component="section"
+      sx={{ p: 2, border: '1px dashed grey', width: 1 / 2 }}
+    >
+      <Typography paragraph={true}>{task.content}</Typography>
+      <Typography paragraph={true}>
         Created at:{' '}
         {task.createdAt && dayjs(task.createdAt).format('YYYY-MM-DD')}
-      </p>
-      {task.dueDate ? <p>{task.dueDate.toString()}</p> : null}
-      <button type="button" onClick={editHandler}>
-        Edit
-      </button>
-      <button type="button" name="delete" onClick={deleteHandler}>
-        Delete
-      </button>
+      </Typography>
+      {task.dueDate ? (
+        <Typography paragraph={true}>
+          Due date: {task.dueDate.toString()}
+        </Typography>
+      ) : null}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Button
+          sx={{ m: 1, width: 1 / 3 }}
+          variant="contained"
+          type="button"
+          onClick={editHandler}
+        >
+          Edit
+        </Button>
+        <Button
+          sx={{ m: 1, width: 1 / 3 }}
+          variant="contained"
+          type="button"
+          name="delete"
+          onClick={deleteHandler}
+        >
+          Delete
+        </Button>
+      </Box>
       {editState ? (
         <SingleTaskContext.Provider value={singleTaskContext}>
           <Modal />{' '}
         </SingleTaskContext.Provider>
       ) : null}
-    </div>
+    </Box>
   );
 };

@@ -1,7 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { TasksContext, SingleTaskContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 import { checkIfObjectIsPopulated } from '../utils/helperFunctions';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 export const Form = (config: requestConfig) => {
   const { singleTask, setEditModalState } = useContext(SingleTaskContext);
@@ -17,8 +20,9 @@ export const Form = (config: requestConfig) => {
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
     const name = target.name;
+
     setTask({ ...task, [name]: target.value });
-    validateBtn();
+    // validateBtn();
   }
 
   async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
@@ -52,37 +56,73 @@ export const Form = (config: requestConfig) => {
         })
     );
   }
+  const validateBtn = useCallback(() => {
+    task.content && task.content.length === 0
+      ? setShouldDisableBtn(true)
+      : setShouldDisableBtn(false);
 
-  function validateBtn() {
-    if (
-      (task.content && task.content.length === 0) ||
-      (task.content && tasks.filter((t) => t.content === task.content))
-    ) {
-      setShouldDisableBtn(true);
-    } else {
-      setShouldDisableBtn(false);
-    }
-  }
+    tasks.some((t) =>
+      t.content === task.content
+        ? setShouldDisableBtn(true)
+        : setShouldDisableBtn(false)
+    );
+  }, [task]);
+
+  useEffect(() => {
+    validateBtn();
+  }, [validateBtn, task]);
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="dueDate">Due data</label>
-      <input
-        onChange={handleInputChange}
+    <Stack
+      component="form"
+      noValidate
+      sx={{
+        p: 2,
+        display: 'flex',
+        justifyContent: 'center',
+        zIndex: '1000',
+        backgroundColor: 'white',
+      }}
+      spacing={2}
+      onSubmit={submitHandler}
+    >
+      <TextField
+        id="date"
+        label="Due date:"
         type="date"
         name="dueDate"
-        value={task.dueDate?.toString()}
-      />
-      <label htmlFor="content">Add a task</label>
-      <input
         onChange={handleInputChange}
+        value={task.dueDate}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      ></TextField>
+      <TextField
+        label="Task:"
         type="text"
         name="content"
+        onChange={handleInputChange}
         value={task.content}
-      />
-      <button type="submit" disabled={shouldDisableBtn}>
-        Submit
-      </button>
-    </form>
+      ></TextField>
+
+      {shouldDisableBtn ? (
+        <Button
+          variant="contained"
+          type="submit"
+          disabled
+          sx={{ width: 1 / 8, alignSelf: 'center' }}
+        >
+          Submit
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ width: 1 / 8, alignSelf: 'center' }}
+        >
+          Submit
+        </Button>
+      )}
+    </Stack>
   );
 };

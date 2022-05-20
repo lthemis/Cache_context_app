@@ -18,7 +18,7 @@ export const Modal = () => {
         width: '100vw',
         height: '100vh',
         position: 'fixed',
-        zIndex: '1000',
+        zIndex: '100',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
