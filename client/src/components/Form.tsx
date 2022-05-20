@@ -16,7 +16,6 @@ export const Form = (config: requestConfig) => {
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
     const name = target.name;
-
     setTask({ ...task, [name]: target.value });
   }
 
