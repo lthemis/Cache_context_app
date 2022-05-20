@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { SingleTaskContext, TasksContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
 import { Modal } from './Modal';
+import dayjs from 'dayjs';
 
 export const Task = ({ ...task }: Task) => {
   const { setTasks } = useContext(TasksContext);
@@ -37,9 +38,14 @@ export const Task = ({ ...task }: Task) => {
       }
     );
   }
+
   return (
     <div>
       <p>{task.content}</p>
+      <p>
+        Created at:{' '}
+        {task.createdAt && dayjs(task.createdAt).format('YYYY-MM-DD')}
+      </p>
       {task.dueDate ? <p>{task.dueDate.toString()}</p> : null}
       <button type="button" onClick={editHandler}>
         Edit

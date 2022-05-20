@@ -7,17 +7,11 @@ interface Task {
   __v?: number;
 }
 
-interface FuncProp {
-  (): void;
-}
-
 interface Action {
   type: string;
   payload: Task;
 }
 interface Context {
-  action?: React.Dispatch<React.SetStateAction<Task[]>>;
-  dispatch?: React.Dispatch<any>;
   tasks: Task[];
   setTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
 }

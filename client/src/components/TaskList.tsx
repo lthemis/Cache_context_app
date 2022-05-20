@@ -3,7 +3,7 @@ import { Task } from './Task';
 import { TasksContext } from '../context/TasksContext';
 
 export const TaskList = () => {
-  const { tasks, action, dispatch } = useContext(TasksContext);
+  const { tasks } = useContext(TasksContext);
   return (
     <div>
       TaskList
