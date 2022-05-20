@@ -1,22 +1,29 @@
 import React, { useState, useContext } from 'react';
 import { TasksContext, SingleTaskContext } from '../context/TasksContext';
 import useHttp from '../hooks/useHtml';
+import { checkIfObjectIsPopulated } from '../utils/helperFunctions';
 
 export const Form = (config: requestConfig) => {
   const { singleTask } = useContext(SingleTaskContext);
   const { setTasks } = useContext(TasksContext);
-  const [task, setTask] = useState<Task>({ content: '', dueDate: '' });
+  const [task, setTask] = useState<Task>(
+    checkIfObjectIsPopulated(singleTask)
+      ? singleTask
+      : { dueDate: '', content: '' }
+  );
   const { sendRequest } = useHttp();
+
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
     const name = target.name;
+
     setTask({ ...task, [name]: target.value });
   }
 
   async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (singleTask && Object.keys(singleTask).length > 0) {
+    if (checkIfObjectIsPopulated(singleTask)) {
       config = {
         ...config,
         body: {
@@ -37,7 +44,7 @@ export const Form = (config: requestConfig) => {
       (data: Task) =>
         setTasks &&
         setTasks((prev) => {
-          return singleTask && Object.keys(singleTask).length > 0
+          return checkIfObjectIsPopulated(singleTask)
             ? [...prev.filter((t) => t._id !== singleTask._id), data]
             : [...prev, data];
         })
@@ -51,14 +58,14 @@ export const Form = (config: requestConfig) => {
         onChange={handleInputChange}
         type="date"
         name="dueDate"
-      // value={task.dueDate?.toString()}
+        value={task.dueDate?.toString()}
       />
       <label htmlFor="content">Add a task</label>
       <input
         onChange={handleInputChange}
         type="text"
         name="content"
-      // value={task.content}
+        value={task.content}
       />
       <button type="submit">Submit</button>
     </form>
