@@ -17,6 +17,7 @@ function App() {
       },
     };
     sendRequest(config, setTasks);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [sendRequest, tasks]);
 
   const appContext = {

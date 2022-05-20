@@ -5,18 +5,20 @@ import { checkIfObjectIsPopulated } from '../utils/helperFunctions';
 
 export const Form = (config: requestConfig) => {
   const { singleTask, setEditModalState } = useContext(SingleTaskContext);
-  const { setTasks } = useContext(TasksContext);
+  const { tasks, setTasks } = useContext(TasksContext);
   const [task, setTask] = useState<Task>(
     checkIfObjectIsPopulated(singleTask)
       ? singleTask
       : { dueDate: '', content: '' }
   );
+  const [shouldDisableBtn, setShouldDisableBtn] = useState(true);
   const { sendRequest } = useHttp();
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
     const name = target.name;
     setTask({ ...task, [name]: target.value });
+    validateBtn();
   }
 
   async function submitHandler(e: React.FormEvent<HTMLFormElement>) {
@@ -51,6 +53,17 @@ export const Form = (config: requestConfig) => {
     );
   }
 
+  function validateBtn() {
+    if (
+      (task.content && task.content.length === 0) ||
+      (task.content && tasks.filter((t) => t.content === task.content))
+    ) {
+      setShouldDisableBtn(true);
+    } else {
+      setShouldDisableBtn(false);
+    }
+  }
+
   return (
     <form onSubmit={submitHandler}>
       <label htmlFor="dueDate">Due data</label>
@@ -67,7 +80,9 @@ export const Form = (config: requestConfig) => {
         name="content"
         value={task.content}
       />
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={shouldDisableBtn}>
+        Submit
+      </button>
     </form>
   );
 };
