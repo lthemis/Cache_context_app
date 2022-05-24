@@ -9,6 +9,7 @@ export async function addTask(req: Request, res: Response) {
     res.send(taskFromDb);
     res.end();
   } catch (e) {
+    console.log(e);
     res.status(500);
     res.send(e);
     res.end();

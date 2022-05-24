@@ -17,12 +17,17 @@ const useHttp = () => {
         });
 
         if (!response.ok) {
+          const err = await response.json();
+          console.log(err);
+
           throw new Error('Request failed!');
         }
 
         const data = await response.json();
         applyData(data);
       } catch (err: any) {
+        console.log(err);
+
         setError(err.message || 'Something went wrong!');
       }
       setIsLoading(false);

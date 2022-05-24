@@ -45,6 +45,8 @@ export const Form = (config: requestConfig) => {
       };
     }
     setEditModalState && setEditModalState(false);
+    setTask({ dueDate: '', content: '' });
+    setShouldDisableBtn(true);
 
     sendRequest(
       config,
@@ -65,10 +67,10 @@ export const Form = (config: requestConfig) => {
 
     name === 'content' &&
       allTasks.some((t) => {
-        t.content === value
-          ? setShouldDisableBtn(true)
-          : setShouldDisableBtn(false);
-      });
+        return t.content === value;
+      })
+      ? setShouldDisableBtn(true)
+      : setShouldDisableBtn(false);
   }
 
   return (
