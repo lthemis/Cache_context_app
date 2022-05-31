@@ -106,24 +106,14 @@ export const Form = (config: requestConfig) => {
         value={task.content}
       ></TextField>
 
-      {shouldDisableBtn ? (
-        <Button
-          variant="contained"
-          type="submit"
-          disabled
-          sx={{ width: 1 / 8, alignSelf: 'center' }}
-        >
-          Submit
-        </Button>
-      ) : (
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ width: 1 / 8, alignSelf: 'center' }}
-        >
-          Submit
-        </Button>
-      )}
+      <Button
+        variant="contained"
+        type="submit"
+        disabled={shouldDisableBtn}
+        sx={{ width: 1 / 8, alignSelf: 'center' }}
+      >
+        Submit
+      </Button>
     </Stack>
   );
 };
