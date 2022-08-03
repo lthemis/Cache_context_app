@@ -1,14 +1,7 @@
 import { Form } from './Form';
+import { patchRequestConfig } from '../utils/configRequests';
 
 export const Modal = () => {
-  const config = {
-    url: `http://localhost:8000/editTask`,
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
   return (
     <div
       style={{
@@ -24,7 +17,7 @@ export const Modal = () => {
         alignItems: 'center',
       }}
     >
-      <Form {...config}></Form>
+      <Form {...patchRequestConfig}></Form>
     </div>
   );
 };

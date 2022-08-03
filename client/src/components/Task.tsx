@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { SingleTaskContext, TasksContext } from '../context/TasksContext';
-import useHttp from '../hooks/useHtml';
 import { Modal } from './Modal';
 import dayjs from 'dayjs';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import useHttpRequest from '../hooks/useHttp';
+import { deleteRequestConfig } from '../utils/configRequests';
 
 export const Task = ({ ...task }: Task) => {
   const { setTasks } = useContext(TasksContext);
@@ -15,23 +16,16 @@ export const Task = ({ ...task }: Task) => {
     setEditModalState: setEditModalState,
   };
 
-  const { sendRequest: deleteTask } = useHttp();
+  const { sendRequest: deleteTaskHttpRequest } = useHttpRequest();
 
   function editHandler() {
     setEditModalState(true);
   }
 
   function deleteHandler() {
-    const config = {
-      url: `http://localhost:8000/deleteTask`,
-      body: { task: { _id: task._id } },
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    deleteTask(
-      config,
+    console.log({ ...deleteRequestConfig, body: { task: { _id: task._id } } });
+
+    deleteTaskHttpRequest(
       (data: { acknowledged: boolean; deletedCount: number }) => {
         if (data.deletedCount === 1) {
           setTasks &&
@@ -39,7 +33,8 @@ export const Task = ({ ...task }: Task) => {
               ...prev.filter((task) => task._id !== task._id),
             ]);
         }
-      }
+      },
+      { ...deleteRequestConfig, body: { task: { _id: task._id } } }
     );
   }
 

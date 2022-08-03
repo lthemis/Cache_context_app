@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { TasksContext, SingleTaskContext } from '../context/TasksContext';
-import useHttp from '../hooks/useHtml';
 import { checkIfObjectIsPopulated } from '../utils/helperFunctions';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import useHttpRequest from '../hooks/useHttp';
 
 export const Form = (config: requestConfig) => {
   const { singleTask, setEditModalState } = useContext(SingleTaskContext);
@@ -15,7 +15,7 @@ export const Form = (config: requestConfig) => {
       : { dueDate: '', content: '' }
   );
   const [shouldDisableBtn, setShouldDisableBtn] = useState(true);
-  const { sendRequest } = useHttp();
+  const { sendRequest: postPatchTaskHttpRequest } = useHttpRequest();
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target;
@@ -48,15 +48,15 @@ export const Form = (config: requestConfig) => {
     setTask({ dueDate: '', content: '' });
     setShouldDisableBtn(true);
 
-    sendRequest(
-      config,
+    postPatchTaskHttpRequest(
       (data: Task) =>
         setTasks &&
         setTasks((prev) => {
           return checkIfObjectIsPopulated(singleTask)
             ? [...prev.filter((t) => t._id !== singleTask._id), data]
             : [...prev, data];
-        })
+        }),
+      config
     );
   }
 

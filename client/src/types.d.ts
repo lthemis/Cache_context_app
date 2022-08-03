@@ -19,8 +19,8 @@ interface SingleTaskContext {
 
 interface requestConfig {
   url: string;
-  method?: string;
-  mode?: string;
+  method: string;
+  mode: RequestMode;
   headers: {
     'Content-Type': string;
   };
