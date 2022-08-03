@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { TasksContext } from './context/TasksContext';
-import useHttp from './hooks/useHtml';
+import useGetRequest from './hooks/useGetRequest';
 import { Home } from './pages/Home';
 
 function App() {
-  const { sendRequest } = useHttp();
+  const { sendGetRequest } = useGetRequest();
+
   const [allTasks, setTasks] = useState<Task[] | []>([]);
 
   useEffect(() => {
-    const config = {
-      url: `http://localhost:8000/getTasks`,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    sendRequest(config, setTasks);
-    localStorage.setItem('tasks', JSON.stringify(allTasks));
-  }, [sendRequest, allTasks]);
+    // Send get request and populate all tasks state with return value
+    sendGetRequest(setTasks);
+  }, [sendGetRequest, allTasks]);
 
   const appContext = {
     allTasks: allTasks,

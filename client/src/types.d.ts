@@ -26,3 +26,11 @@ interface requestConfig {
   };
   body?: any;
 }
+interface applyData {
+  (data): void;
+}
+
+interface error {
+  name: string;
+  message: string;
+}
