@@ -20,6 +20,8 @@ export const Home = () => {
     setTasks: setTasks,
   };
 
+  console.log('home');
+
   // Pass configuration for HTTP request to be performed as props to the Form component.
   // Configuration differs (POST or PATCH) depending on parent component of the Form component.
   return (

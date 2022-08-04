@@ -26,6 +26,7 @@ const useHttpRequest = () => {
         }
         // Pass response as an argument
         const data = await response.json();
+
         applyData(data);
       } catch (err: unknown) {
         let message = 'Unknown error';

@@ -26,10 +26,11 @@ export const Task = ({ ...task }: Task) => {
     // deleteTaskHttpRequest is a function accepting two arguments, 1: callback to be applied on HTTP response and 2: config for the HTTP request.
     deleteTaskHttpRequest(
       (data: { acknowledged: boolean; deletedCount: number }) => {
+        // If backend confirms deletion from the database, remove from state
         if (data.deletedCount === 1) {
           setTasks &&
             setTasks((prev: Task[]) => [
-              ...prev.filter((task) => task._id !== task._id),
+              ...prev.filter((t) => t._id !== task._id),
             ]);
         }
       },
