@@ -5,7 +5,7 @@ export const getRequestConfig: requestConfig = {
   headers: { 'Content-Type': 'application/json' },
 };
 
-export const postRequestConfig: requestConfig = {
+export const postRequestConfig: requestConfig<{ task: Task }> = {
   url: `http://localhost:8000/addTask`,
   method: 'POST',
   mode: 'cors',
@@ -14,7 +14,7 @@ export const postRequestConfig: requestConfig = {
   },
 };
 
-export const patchRequestConfig: requestConfig = {
+export const patchRequestConfig: requestConfig<{ task: Task }> = {
   url: `http://localhost:8000/editTask`,
   method: 'PATCH',
   mode: 'cors',
@@ -23,7 +23,7 @@ export const patchRequestConfig: requestConfig = {
   },
 };
 
-export const deleteRequestConfig: requestConfig = {
+export const deleteRequestConfig: requestConfig<{ task: Task }> = {
   url: `http://localhost:8000/deleteTask`,
   method: 'DELETE',
   mode: 'cors',

@@ -6,7 +6,10 @@ const useHttpRequest = () => {
 
   // Send get request and use body of successful response as an argument of passed "applyData" function.
   const sendRequest = useCallback(
-    async (applyData: applyData, requestConfig: requestConfig) => {
+    async (
+      applyData: applyData,
+      requestConfig: requestConfig<{ task: Task }> | requestConfig
+    ) => {
       setIsLoading(true);
       setError(null);
 
@@ -18,7 +21,6 @@ const useHttpRequest = () => {
           headers: requestConfig.headers,
           body: JSON.stringify(requestConfig.body),
         });
-        // throw server side error
         if (!response.ok) {
           throw new Error('Request failed!');
         }

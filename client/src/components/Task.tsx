@@ -23,8 +23,7 @@ export const Task = ({ ...task }: Task) => {
   }
 
   function deleteHandler() {
-    console.log({ ...deleteRequestConfig, body: { task: { _id: task._id } } });
-
+    // deleteTaskHttpRequest is a function accepting two arguments, 1: callback to be applied on HTTP response and 2: config for the HTTP request.
     deleteTaskHttpRequest(
       (data: { acknowledged: boolean; deletedCount: number }) => {
         if (data.deletedCount === 1) {
@@ -34,7 +33,10 @@ export const Task = ({ ...task }: Task) => {
             ]);
         }
       },
-      { ...deleteRequestConfig, body: { task: { _id: task._id } } }
+      {
+        ...deleteRequestConfig,
+        body: { task: { _id: task._id } },
+      }
     );
   }
 

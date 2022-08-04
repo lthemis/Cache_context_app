@@ -17,20 +17,15 @@ interface SingleTaskContext {
   setEditModalState?: React.Dispatch<React.SetStateAction>;
 }
 
-interface requestConfig {
+interface requestConfig<T = void> {
   url: string;
   method: string;
   mode: RequestMode;
   headers: {
     'Content-Type': string;
   };
-  body?: any;
+  body?: T;
 }
 interface applyData {
   (data): void;
-}
-
-interface error {
-  name: string;
-  message: string;
 }

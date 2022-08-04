@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import useHttpRequest from '../hooks/useHttp';
 
-export const Form = (config: requestConfig) => {
+export const Form = (requestConfig: requestConfig<{ task: Task }>) => {
   const { singleTask, setEditModalState } = useContext(SingleTaskContext);
   const { allTasks, setTasks } = useContext(TasksContext);
   const [task, setTask] = useState<Task>(
@@ -30,15 +30,15 @@ export const Form = (config: requestConfig) => {
     e.preventDefault();
 
     if (checkIfObjectIsPopulated(singleTask)) {
-      config = {
-        ...config,
+      requestConfig = {
+        ...requestConfig,
         body: {
           task: { ...singleTask, content: task.content, dueDate: task.dueDate },
         },
       };
     } else {
-      config = {
-        ...config,
+      requestConfig = {
+        ...requestConfig,
         body: {
           task: task,
         },
@@ -56,7 +56,7 @@ export const Form = (config: requestConfig) => {
             ? [...prev.filter((t) => t._id !== singleTask._id), data]
             : [...prev, data];
         }),
-      config
+      requestConfig
     );
   }
 
