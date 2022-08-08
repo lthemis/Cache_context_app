@@ -7,7 +7,7 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - bkbn-network
+      - todo-network
     volumes:
       - ./client/src:/usr/app/src
       - ./client/public:/usr/app/public
@@ -25,13 +25,13 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - bkbn-network
+      - todo-network
     volumes:
       - ./server/src:/usr/app/src
     depends_on:
       - db
     environment:
-      - DB_MONGO_HOST=mongodb://db:27017/bkbn
+      - DB_MONGO_HOST=mongodb://db:27017/todo
       - PORT=8000
     command: npm start
   db:
@@ -39,12 +39,12 @@ services:
     ports: 
      - 27017:27017
     networks:
-      - bkbn-network
+      - todo-network
     volumes:
       - mongo-data:/data/db
 
 networks:
-  bkbn-network:
+  todo-network:
     driver: bridge
 
 volumes:

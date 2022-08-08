@@ -1,27 +1,7 @@
 ## Getting Started
 
-1. Install dependencies in both server and client folders.
+1. Installed Docker Compose and Docker Engine: https://docs.docker.com/compose/install/
 
-    ```bash
-    npm install
-    ```
+1. Make sure that ports 3000, 8000, 27017 are available.
 
-2. Create .env file in server folder
-
-    ```bash
-    DB_MONGO_HOST=
-    ```
-
-3. Install [MongoDB](https://www.mongodb.com/) on your machine
-
-4. Start the server => from the server folder, run
-
-    ```bash
-   npm start
-    ```
-
-5. Start the client => from the client folder, run
-
-    ```bash
-    npm start
-    ```
+2. Open terminal from the root folder of the project and run "docker-compose up".
