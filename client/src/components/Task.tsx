@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { SingleTaskContext, TasksContext } from '../context/TasksContext';
+import { SingleTaskContext, AllTasksContext } from '../context/TasksContext';
 import { Modal } from './Modal';
 import dayjs from 'dayjs';
 import Button from '@mui/material/Button';
@@ -9,7 +9,7 @@ import useHttpRequest from '../hooks/useHttp';
 import { deleteRequestConfig } from '../utils/configRequests';
 
 export const Task = ({ ...task }: Task) => {
-  const { setTasks } = useContext(TasksContext);
+  const { setTasks } = useContext(AllTasksContext);
   const [editState, setEditModalState] = useState(false);
   const singleTaskContext = {
     singleTask: task,

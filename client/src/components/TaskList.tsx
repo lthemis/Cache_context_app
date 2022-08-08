@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Task } from './Task';
-import { TasksContext } from '../context/TasksContext';
+import { AllTasksContext } from '../context/TasksContext';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 export const TaskList = () => {
-  const { allTasks } = useContext(TasksContext);
+  const { allTasks } = useContext(AllTasksContext);
   return (
     <Box
       sx={{

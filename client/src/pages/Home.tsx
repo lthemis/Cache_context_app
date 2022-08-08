@@ -1,7 +1,7 @@
 import { Form } from '../components/Form';
 import { TaskList } from '../components/TaskList';
 import { useEffect, useState } from 'react';
-import { TasksContext } from '../context/TasksContext';
+import { AllTasksContext } from '../context/TasksContext';
 import { getRequestConfig, postRequestConfig } from '../utils/configRequests';
 import useHttpRequest from '../hooks/useHttp';
 
@@ -26,10 +26,10 @@ export const Home = () => {
   // Configuration differs (POST or PATCH) depending on parent component of the Form component.
   return (
     <div>
-      <TasksContext.Provider value={appContext}>
+      <AllTasksContext.Provider value={appContext}>
         <Form {...postRequestConfig}></Form>
         <TaskList></TaskList>
-      </TasksContext.Provider>
+      </AllTasksContext.Provider>
     </div>
   );
 };
