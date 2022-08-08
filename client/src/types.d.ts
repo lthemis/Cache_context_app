@@ -7,7 +7,7 @@ interface Task {
   __v?: number;
 }
 
-interface Context {
+interface MultipleTasksContext {
   allTasks: Task[];
   setTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
 }
