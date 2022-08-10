@@ -1,12 +1,15 @@
+const baseUrl = process.env.REACT_APP_BASE_URL;
+console.log(baseUrl);
+
 export const getRequestConfig: requestConfig = {
-  url: `http://localhost:8000/getTasks`,
+  url: `${baseUrl}/getTasks`,
   method: 'GET',
   mode: 'cors',
   headers: { 'Content-Type': 'application/json' },
 };
 
 export const postRequestConfig: requestConfig<{ task: Task }> = {
-  url: `http://localhost:8000/addTask`,
+  url: `${baseUrl}/addTask`,
   method: 'POST',
   mode: 'cors',
   headers: {
@@ -15,7 +18,7 @@ export const postRequestConfig: requestConfig<{ task: Task }> = {
 };
 
 export const patchRequestConfig: requestConfig<{ task: Task }> = {
-  url: `http://localhost:8000/editTask`,
+  url: `${baseUrl}/editTask`,
   method: 'PATCH',
   mode: 'cors',
   headers: {
@@ -24,7 +27,7 @@ export const patchRequestConfig: requestConfig<{ task: Task }> = {
 };
 
 export const deleteRequestConfig: requestConfig<{ task: Task }> = {
-  url: `http://localhost:8000/deleteTask`,
+  url: `${baseUrl}/deleteTask`,
   method: 'DELETE',
   mode: 'cors',
   headers: {
