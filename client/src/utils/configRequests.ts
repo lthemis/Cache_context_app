@@ -1,5 +1,7 @@
-const baseUrl = process.env.REACT_APP_BASE_URL;
-console.log(baseUrl);
+const baseUrl =
+  process.env.REACT_APP_BASE_URL !== undefined
+    ? process.env.REACT_APP_BASE_URL
+    : 'http://localhost:8000';
 
 export const getRequestConfig: requestConfig = {
   url: `${baseUrl}/getTasks`,

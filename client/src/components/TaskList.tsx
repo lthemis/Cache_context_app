@@ -15,9 +15,7 @@ export const TaskList = () => {
         alignItems: 'center',
       }}
     >
-      <Typography variant="h4" sx={{ m: 1 }}>
-        TaskList
-      </Typography>
+      <Typography variant="h4" sx={{ m: 1 }}></Typography>
       {allTasks &&
         allTasks.map((task) => {
           return <Task key={task._id} {...task}></Task>;
