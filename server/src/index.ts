@@ -8,7 +8,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use(cors());
+const corsConfig = {
+  origin: 'http://localhost:3000',
+};
+
+app.use(cors(corsConfig));
 app.use(express.json());
 app.use('/', taskRouter);
 app.use('*', (req, res) => res.sendStatus(404));
